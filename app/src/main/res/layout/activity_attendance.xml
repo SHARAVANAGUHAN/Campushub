@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="#F5F7FB">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+
+        <!-- TITLE -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Take Attendance"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:textColor="#172554"
+            android:layout_marginBottom="8dp"/>
+
+
+        <!-- DESCRIPTION -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Select class details to view students"
+            android:textSize="14sp"
+            android:textColor="#64748B"
+            android:layout_marginBottom="20dp"/>
+
+
+        <!-- CLASS DETAILS CARD -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#FFFFFF"
+            android:padding="16dp"
+            android:elevation="3dp">
+
+
+            <!-- COURSE -->
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Course"
+                android:textStyle="bold"
+                android:textColor="#334155"/>
+
+            <Spinner
+                android:id="@+id/spinnerCourse"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"/>
+
+
+            <!-- YEAR -->
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Year"
+                android:textStyle="bold"
+                android:textColor="#334155"/>
+
+            <Spinner
+                android:id="@+id/spinnerYear"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"/>
+
+
+            <!-- SEMESTER -->
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Semester"
+                android:textStyle="bold"
+                android:textColor="#334155"/>
+
+            <Spinner
+                android:id="@+id/spinnerSemester"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"/>
+
+
+            <!-- SUBJECT -->
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Subject"
+                android:textStyle="bold"
+                android:textColor="#334155"/>
+
+            <Spinner
+                android:id="@+id/spinnerSubject"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"/>
+
+
+            <!-- VIEW STUDENTS -->
+
+            <Button
+                android:id="@+id/btnViewStudents"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="View Students"
+                android:layout_marginTop="16dp"/>
+
+        </LinearLayout>
+
+
+        <!-- STUDENT COUNT -->
+
+        <TextView
+            android:id="@+id/txtStudentCount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Students"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#172554"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="8dp"/>
+
+
+        <!-- STUDENT LIST -->
+
+        <LinearLayout
+            android:id="@+id/studentContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"/>
+
+
+        <!-- MARK ALL PRESENT -->
+
+        <Button
+            android:id="@+id/btnMarkAllPresent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mark All Present"
+            android:visibility="gone"
+            android:layout_marginTop="16dp"/>
+
+
+        <!-- SUBMIT -->
+
+        <Button
+            android:id="@+id/btnSubmitAttendance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Submit Attendance"
+            android:visibility="gone"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="24dp"/>
+
+    </LinearLayout>
+
+</ScrollView>

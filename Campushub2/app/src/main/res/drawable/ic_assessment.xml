@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="42dp"
+    android:height="42dp"
+    android:viewportWidth="42"
+    android:viewportHeight="42">
+
+    <!-- Document -->
+    <path
+        android:fillColor="#7B1FA2"
+        android:pathData="M10,5 L27,5 L34,12 L34,37 L10,37 Z"/>
+
+    <!-- Folded corner -->
+    <path
+        android:fillColor="#F3E5F5"
+        android:pathData="M27,5 L27,13 L34,13 Z"/>
+
+    <!-- Chart bars -->
+    <path
+        android:fillColor="#F3E5F5"
+        android:pathData="M15,28 L18,28 L18,21 L15,21 Z"/>
+
+    <path
+        android:fillColor="#F3E5F5"
+        android:pathData="M20,28 L23,28 L23,17 L20,17 Z"/>
+
+    <path
+        android:fillColor="#F3E5F5"
+        android:pathData="M25,28 L28,28 L28,14 L25,14 Z"/>
+
+    <!-- Baseline -->
+    <path
+        android:fillColor="#F3E5F5"
+        android:pathData="M14,30 L29,30 L29,32 L14,32 Z"/>
+
+</vector>
