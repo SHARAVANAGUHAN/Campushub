@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Android / Gradle
 .gradle/
 **/build/
@@ -24,3 +25,23 @@ staticfiles/
 # OS
 .DS_Store
 Thumbs.db
+=======
+*.iml
+.gradle
+/local.properties
+**/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+/.idea/**
+.DS_Store
+/build
+**/build/
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+>>>>>>> f16f158f9e282e81fbd4f6aec9c4101a56a77759

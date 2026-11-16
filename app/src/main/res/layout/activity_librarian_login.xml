@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EEF5FF"
+    android:fillViewport="true"
+    android:fitsSystemWindows="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#EEF5FF">
+
+        <FrameLayout
+            android:id="@+id/header"
+            android:layout_width="0dp"
+            android:layout_height="320dp"
+            android:background="@drawable/header_blue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+            <View android:layout_width="220dp" android:layout_height="220dp" android:layout_gravity="top|start" android:layout_marginStart="-70dp" android:layout_marginTop="-40dp" android:background="@drawable/bg_circle_light" />
+            <View android:layout_width="260dp" android:layout_height="260dp" android:layout_gravity="bottom|end" android:layout_marginEnd="-80dp" android:layout_marginBottom="-60dp" android:background="@drawable/bg_circle_dark" />
+            <ImageButton android:id="@+id/btnBack" android:layout_width="44dp" android:layout_height="44dp" android:layout_gravity="top|start" android:layout_marginStart="18dp" android:layout_marginTop="14dp" android:background="?attr/selectableItemBackgroundBorderless" android:contentDescription="Go back" android:padding="10dp" android:src="@drawable/ic_arrow_back" app:tint="@android:color/white" />
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center" android:orientation="vertical">
+                <ImageView android:layout_width="105dp" android:layout_height="105dp" android:background="@drawable/logo_circle" android:contentDescription="CampusHub logo" android:padding="17dp" android:src="@drawable/campus_hub_logo" />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="16dp" android:text="Librarian sign in" android:textColor="@android:color/white" android:textSize="28sp" android:textStyle="bold" />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="5dp" android:text="Manage books and student requests" android:textColor="#E8F3FF" android:textSize="14sp" />
+            </LinearLayout>
+        </FrameLayout>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/loginCard"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="-35dp"
+            android:layout_marginEnd="24dp"
+            app:cardBackgroundColor="@android:color/white"
+            app:cardCornerRadius="30dp"
+            app:cardElevation="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/header">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="26dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Welcome back" android:textColor="#1E293B" android:textSize="26sp" android:textStyle="bold" />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="Sign in to manage the campus library" android:textColor="#64748B" android:textSize="14sp" />
+                <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="24dp" android:hint="Librarian ID" app:boxBackgroundColor="#F4F7FB" app:boxBackgroundMode="filled" app:boxCornerRadiusBottomEnd="18dp" app:boxCornerRadiusBottomStart="18dp" app:boxCornerRadiusTopEnd="18dp" app:boxCornerRadiusTopStart="18dp" app:boxStrokeColor="#4F8CFF">
+                    <com.google.android.material.textfield.TextInputEditText android:id="@+id/etLibrarianId" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="text" android:textColor="#000000" />
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16dp" android:hint="Password" app:boxBackgroundColor="#F4F7FB" app:boxBackgroundMode="filled" app:boxCornerRadiusBottomEnd="18dp" app:boxCornerRadiusBottomStart="18dp" app:boxCornerRadiusTopEnd="18dp" app:boxCornerRadiusTopStart="18dp" app:boxStrokeColor="#4F8CFF" app:endIconMode="password_toggle">
+                    <com.google.android.material.textfield.TextInputEditText android:id="@+id/etPassword" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="textPassword" android:textColor="#000000" />
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.button.MaterialButton android:id="@+id/btnLogin" android:layout_width="match_parent" android:layout_height="58dp" android:layout_marginTop="24dp" android:background="@drawable/animated_login_button" android:text="SIGN IN" android:textAllCaps="false" android:textColor="@android:color/white" android:textSize="17sp" app:backgroundTint="@null" app:cornerRadius="29dp" />
+                <TextView android:id="@+id/tvRegister" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center" android:layout_marginTop="20dp" android:layout_marginBottom="8dp" android:padding="8dp" android:text="New librarian? Register account" android:textColor="#2563EB" android:textStyle="bold" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <Space android:layout_width="match_parent" android:layout_height="30dp" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/loginCard" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

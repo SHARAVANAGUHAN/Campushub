@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">Campus hub</string>
+    <string name="student_information">Student Information</string>
+    <string name="student_id_prefix">Student ID : </string>
+    <string name="course_prefix">Course : </string>
+    <string name="semester_prefix">Semester : </string>
+    <string name="attendance">Attendance</string>
+    <string name="cgpa">CGPA</string>
+    <string name="pending_assignments">Pending Assignments</string>
+    <string name="good_afternoon">Good Afternoon 👋</string>
+    <string name="student_name">Pranay Kiraan R</string>
+    <string name="college_name">SSMRV College</string>
+    <string name="course_full">Bachelor of Computer Applications</string>
+    <string name="semester_v">Semester V</string>
+    <string name="book_restricted">Restricted</string>
+    <string name="book_finished">Finished</string>
+    <string name="book_read_percentage">%1$d%% Read</string>
+    <string name="book_soft_copy_locked">Soft copy locked by librarian</string>
+    <string name="book_access_locked">Book access restricted</string>
+    <string name="book_access_available">Book available to read</string>
+    <string name="library_added">PDF added to your library</string>
+    <string name="library_permission_error">Could not keep access to this PDF. Please add it again.</string>
+    <string name="library_removed">Book removed from your library</string>
+    <string name="library_open_error">This PDF could not be opened. Try adding it again.</string>
+    <string name="reader_page">Page %1$d of %2$d</string>
+    <plurals name="library_book_count">
+        <item quantity="one">%d book on your shelf</item>
+        <item quantity="other">%d books on your shelf</item>
+    </plurals>
+</resources>

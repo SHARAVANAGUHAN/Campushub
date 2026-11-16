@@ -1,0 +1,585 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:fitsSystemWindows="true"
+    android:background="#EEF5FF">
+
+    <LinearLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- ================= HEADER ================= -->
+
+        <FrameLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:background="@drawable/header_blue">
+
+            <View
+                android:id="@+id/circleTop"
+                android:layout_width="220dp"
+                android:layout_height="220dp"
+                android:layout_gravity="top|start"
+                android:layout_marginStart="-70dp"
+                android:layout_marginTop="-40dp"
+                android:background="@drawable/bg_circle_light" />
+
+            <View
+                android:id="@+id/circleBottom"
+                android:layout_width="260dp"
+                android:layout_height="260dp"
+                android:layout_gravity="bottom|end"
+                android:layout_marginEnd="-80dp"
+                android:layout_marginBottom="-60dp"
+                android:background="@drawable/bg_circle_dark" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/imgLogo"
+                    android:layout_width="110dp"
+                    android:layout_height="110dp"
+                    android:background="@drawable/logo_circle"
+                    android:padding="18dp"
+                    android:src="@drawable/campus_hub_logo"
+                    android:contentDescription="Campus Hub Logo" />
+
+                <TextView
+                    android:id="@+id/txtAppName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="CampusHub"
+                    android:textColor="@android:color/white"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txtSubtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="Create your lecturer account"
+                    android:textColor="#E8F3FF"
+                    android:textSize="15sp" />
+
+            </LinearLayout>
+
+        </FrameLayout>
+
+
+        <!-- ================= REGISTRATION CARD ================= -->
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/registrationCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="-35dp"
+            app:cardBackgroundColor="@android:color/white"
+            app:cardCornerRadius="30dp"
+            app:cardElevation="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="26dp">
+
+
+                <!-- ================= PERSONAL INFORMATION ================= -->
+
+                <TextView
+                    android:id="@+id/txtPersonalSection"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Personal Information"
+                    android:textColor="#1565C0"
+                    android:textSize="19sp"
+                    android:textStyle="bold" />
+
+
+                <!-- Full Name -->
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilFullName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:hint="Full Name"
+                    app:boxBackgroundMode="filled"
+                    app:boxBackgroundColor="#F4F7FB"
+                    app:boxCornerRadiusTopStart="18dp"
+                    app:boxCornerRadiusTopEnd="18dp"
+                    app:boxCornerRadiusBottomStart="18dp"
+                    app:boxCornerRadiusBottomEnd="18dp"
+                    app:boxStrokeColor="#4F8CFF">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etFullName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName"
+                        android:textColor="@android:color/black" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <!-- Lecturer ID -->
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilLecturerId"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:hint="Lecturer / Staff ID"
+                    app:boxBackgroundMode="filled"
+                    app:boxBackgroundColor="#F4F7FB"
+                    app:boxCornerRadiusTopStart="18dp"
+                    app:boxCornerRadiusTopEnd="18dp"
+                    app:boxCornerRadiusBottomStart="18dp"
+                    app:boxCornerRadiusBottomEnd="18dp"
+                    app:boxStrokeColor="#4F8CFF">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etLecturerId"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        android:textColor="@android:color/black" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <!-- Invitation Code -->
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilInvitationCode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:hint="Invitation Code"
+                    app:boxBackgroundMode="filled"
+                    app:boxBackgroundColor="#F4F7FB"
+                    app:boxCornerRadiusTopStart="18dp"
+                    app:boxCornerRadiusTopEnd="18dp"
+                    app:boxCornerRadiusBottomStart="18dp"
+                    app:boxCornerRadiusBottomEnd="18dp"
+                    app:boxStrokeColor="#4F8CFF">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etInvitationCode"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        android:textColor="@android:color/black" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <!-- College Email -->
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:hint="College Email"
+                    app:boxBackgroundMode="filled"
+                    app:boxBackgroundColor="#F4F7FB"
+                    app:boxCornerRadiusTopStart="18dp"
+                    app:boxCornerRadiusTopEnd="18dp"
+                    app:boxCornerRadiusBottomStart="18dp"
+                    app:boxCornerRadiusBottomEnd="18dp"
+                    app:boxStrokeColor="#4F8CFF">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textEmailAddress"
+                        android:textColor="@android:color/black" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <!-- Secret PIN -->
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilSecretPin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:hint="Secret PIN"
+                    app:boxBackgroundMode="filled"
+                    app:boxBackgroundColor="#F4F7FB"
+                    app:boxCornerRadiusTopStart="18dp"
+                    app:boxCornerRadiusTopEnd="18dp"
+                    app:boxCornerRadiusBottomStart="18dp"
+                    app:boxCornerRadiusBottomEnd="18dp"
+                    app:boxStrokeColor="#4F8CFF">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etSecretPin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberPassword"
+                        android:textColor="@android:color/black" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <!-- Date of Birth -->
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilDob"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:hint="Date of Birth"
+                    app:boxBackgroundMode="filled"
+                    app:boxBackgroundColor="#F4F7FB"
+                    app:boxCornerRadiusTopStart="18dp"
+                    app:boxCornerRadiusTopEnd="18dp"
+                    app:boxCornerRadiusBottomStart="18dp"
+                    app:boxCornerRadiusBottomEnd="18dp"
+                    app:boxStrokeColor="#4F8CFF">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etDob"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:focusable="false"
+                        android:textColor="@android:color/black" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <!-- ================= PROFESSIONAL INFORMATION ================= -->
+
+                <TextView
+                    android:id="@+id/txtProfessionalSection"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:text="Professional Information"
+                    android:textColor="#1565C0"
+                    android:textSize="19sp"
+                    android:textStyle="bold" />
+
+
+                <!-- Department -->
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilDepartment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:hint="Department"
+                    app:boxBackgroundMode="filled"
+                    app:boxBackgroundColor="#F4F7FB"
+                    app:boxCornerRadiusTopStart="18dp"
+                    app:boxCornerRadiusTopEnd="18dp"
+                    app:boxCornerRadiusBottomStart="18dp"
+                    app:boxCornerRadiusBottomEnd="18dp"
+                    app:boxStrokeColor="#4F8CFF">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etDepartment"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textCapWords"
+                        android:textColor="@android:color/black" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <!-- Designation -->
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilDesignation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:hint="Designation"
+                    app:boxBackgroundMode="filled"
+                    app:boxBackgroundColor="#F4F7FB"
+                    app:boxCornerRadiusTopStart="18dp"
+                    app:boxCornerRadiusTopEnd="18dp"
+                    app:boxCornerRadiusBottomStart="18dp"
+                    app:boxCornerRadiusBottomEnd="18dp"
+                    app:boxStrokeColor="#4F8CFF">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etDesignation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textCapWords"
+                        android:textColor="@android:color/black" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <!-- Subjects -->
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilSubjects"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:hint="Subjects Taught"
+                    app:boxBackgroundMode="filled"
+                    app:boxBackgroundColor="#F4F7FB"
+                    app:boxCornerRadiusTopStart="18dp"
+                    app:boxCornerRadiusTopEnd="18dp"
+                    app:boxCornerRadiusBottomStart="18dp"
+                    app:boxCornerRadiusBottomEnd="18dp"
+                    app:boxStrokeColor="#4F8CFF">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etSubjects"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="top"
+                        android:inputType="textCapSentences|textMultiLine"
+                        android:minLines="2"
+                        android:textColor="@android:color/black" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <!-- Sections -->
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilSections"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:hint="Sections / Classes Handled"
+                    app:boxBackgroundMode="filled"
+                    app:boxBackgroundColor="#F4F7FB"
+                    app:boxCornerRadiusTopStart="18dp"
+                    app:boxCornerRadiusTopEnd="18dp"
+                    app:boxCornerRadiusBottomStart="18dp"
+                    app:boxCornerRadiusBottomEnd="18dp"
+                    app:boxStrokeColor="#4F8CFF">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etSections"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="top"
+                        android:inputType="textCapSentences|textMultiLine"
+                        android:minLines="2"
+                        android:textColor="@android:color/black" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <!-- ================= ACCOUNT SECURITY ================= -->
+
+                <TextView
+                    android:id="@+id/txtAccountSection"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:text="Account Security"
+                    android:textColor="#1565C0"
+                    android:textSize="19sp"
+                    android:textStyle="bold" />
+
+
+                <!-- Password -->
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:hint="Password"
+                    app:boxBackgroundMode="filled"
+                    app:boxBackgroundColor="#F4F7FB"
+                    app:boxCornerRadiusTopStart="18dp"
+                    app:boxCornerRadiusTopEnd="18dp"
+                    app:boxCornerRadiusBottomStart="18dp"
+                    app:boxCornerRadiusBottomEnd="18dp"
+                    app:boxStrokeColor="#4F8CFF"
+                    app:endIconMode="password_toggle">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword"
+                        android:textColor="@android:color/black" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <!-- Confirm Password -->
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilConfirmPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:hint="Confirm Password"
+                    app:boxBackgroundMode="filled"
+                    app:boxBackgroundColor="#F4F7FB"
+                    app:boxCornerRadiusTopStart="18dp"
+                    app:boxCornerRadiusTopEnd="18dp"
+                    app:boxCornerRadiusBottomStart="18dp"
+                    app:boxCornerRadiusBottomEnd="18dp"
+                    app:boxStrokeColor="#4F8CFF"
+                    app:endIconMode="password_toggle">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etConfirmPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword"
+                        android:textColor="@android:color/black" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <!-- ================= TEACHING ASSIGNMENT ================= -->
+
+                <TextView
+                    android:id="@+id/txtTeachingSection"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:text="Teaching Assignment"
+                    android:textColor="#1565C0"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="How many courses will you be teaching this semester?"
+                    android:textColor="#64748B"
+                    android:textSize="14sp" />
+
+
+                <!-- Number of Courses -->
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilSubjectCount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:hint="Number of Courses"
+                    app:boxBackgroundMode="filled"
+                    app:boxBackgroundColor="#F8FAFC"
+                    app:boxCornerRadiusTopStart="20dp"
+                    app:boxCornerRadiusTopEnd="20dp"
+                    app:boxCornerRadiusBottomStart="20dp"
+                    app:boxCornerRadiusBottomEnd="20dp"
+                    app:boxStrokeColor="#4F8CFF"
+                    app:endIconMode="dropdown_menu">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/spinnerSubjectCount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="none"
+                        android:paddingVertical="14dp"
+                        android:textColor="@android:color/black" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <!-- Course Details -->
+
+                <TextView
+                    android:id="@+id/txtCoursesLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="22dp"
+                    android:text="Course Details"
+                    android:textColor="#1565C0"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+
+                <!-- ONLY ONE subjectsContainer -->
+
+                <LinearLayout
+                    android:id="@+id/subjectsContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:orientation="vertical" />
+
+
+                <!-- Terms -->
+
+                <CheckBox
+                    android:id="@+id/checkTerms"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:text="I agree to the Terms and Conditions"
+                    android:textColor="#334155" />
+
+
+                <!-- Create Account -->
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnCreateAccount"
+                    android:layout_width="match_parent"
+                    android:layout_height="58dp"
+                    android:layout_marginTop="24dp"
+                    android:text="CREATE LECTURER ACCOUNT"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    app:backgroundTint="#1565C0"
+                    app:cornerRadius="29dp" />
+
+
+                <!-- Login -->
+
+                <TextView
+                    android:id="@+id/txtLogin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="30dp"
+                    android:text="Already have an account? Sign In"
+                    android:textColor="#2563EB"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+        <!-- Bottom spacing -->
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="30dp" />
+
+    </LinearLayout>
+
+</ScrollView>

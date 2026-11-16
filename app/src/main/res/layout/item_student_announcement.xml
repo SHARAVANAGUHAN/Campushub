@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.cardview.widget.CardView
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    android:layout_marginBottom="14dp"
+
+    android:elevation="3dp">
+
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:orientation="vertical"
+
+        android:padding="18dp">
+
+
+        <!-- TITLE -->
+
+        <TextView
+
+            android:id="@+id/txtAnnouncementTitle"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:text="Announcement Title"
+
+            android:textColor="#172033"
+
+            android:textSize="19sp"
+
+            android:textStyle="bold" />
+
+
+        <!-- SUBJECT -->
+
+        <TextView
+
+            android:id="@+id/txtAnnouncementSubject"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="6dp"
+
+            android:text="Subject"
+
+            android:textColor="#526581"
+
+            android:textSize="13sp"
+
+            android:textStyle="bold" />
+
+
+        <!-- TEACHER -->
+
+        <TextView
+
+            android:id="@+id/txtAnnouncementTeacher"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="4dp"
+
+            android:text="Posted by Teacher"
+
+            android:textColor="#7A8494"
+
+            android:textSize="12sp" />
+
+
+        <!-- DIVIDER -->
+
+        <View
+
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+
+            android:layout_marginTop="14dp"
+            android:layout_marginBottom="14dp"
+
+            android:background="#E5E8EE" />
+
+
+        <!-- MESSAGE -->
+
+        <TextView
+
+            android:id="@+id/txtAnnouncementMessage"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:text="Announcement message"
+
+            android:textColor="#333333"
+
+            android:textSize="15sp"
+
+            android:lineSpacingExtra="3dp" />
+
+
+        <!-- DATE -->
+
+        <TextView
+
+            android:id="@+id/txtAnnouncementDate"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="14dp"
+
+            android:text="Recently posted"
+
+            android:textColor="#8A93A1"
+
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

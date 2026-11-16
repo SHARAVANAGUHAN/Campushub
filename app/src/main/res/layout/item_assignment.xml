@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    android:layout_marginBottom="14dp"
+
+    app:cardCornerRadius="16dp"
+    app:cardElevation="2dp"
+    app:strokeWidth="1dp"
+    app:strokeColor="#E4E6EA"
+    app:cardBackgroundColor="#FFFFFF">
+
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:orientation="vertical"
+
+        android:padding="18dp">
+
+
+        <!-- ============================================= -->
+        <!-- ASSIGNMENT TITLE -->
+        <!-- ============================================= -->
+
+        <TextView
+
+            android:id="@+id/txtAssignmentTitle"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:text="Python Assignment 1"
+
+            android:textColor="#111111"
+            android:textSize="19sp"
+            android:textStyle="bold" />
+
+
+        <!-- ============================================= -->
+        <!-- SUBJECT -->
+        <!-- ============================================= -->
+
+        <TextView
+
+            android:id="@+id/txtAssignmentSubject"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="7dp"
+
+            android:text="Python Programming (PY101)"
+
+            android:textColor="#666666"
+            android:textSize="14sp" />
+
+
+        <!-- ============================================= -->
+        <!-- DUE DATE -->
+        <!-- ============================================= -->
+
+        <TextView
+
+            android:id="@+id/txtAssignmentDue"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="14dp"
+
+            android:text="Due: 10 Oct 2026 • 11:59"
+
+            android:textColor="#333333"
+            android:textSize="14sp" />
+
+
+        <!-- ============================================= -->
+        <!-- BOTTOM ROW -->
+        <!-- ============================================= -->
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="16dp"
+
+            android:gravity="center_vertical"
+
+            android:orientation="horizontal">
+
+
+            <!-- MARKS -->
+
+            <TextView
+
+                android:id="@+id/txtAssignmentMarks"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="20 Marks"
+
+                android:textColor="#555555"
+
+                android:textSize="14sp"
+
+                android:textStyle="bold" />
+
+
+            <!-- SPACE -->
+
+            <View
+
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+
+                android:layout_weight="1" />
+
+
+            <!-- ========================================= -->
+            <!-- SUBMISSION STATUS -->
+            <!-- ========================================= -->
+
+            <TextView
+
+                android:id="@+id/txtAssignmentStatus"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="NOT SUBMITTED"
+
+                android:textColor="#D32F2F"
+
+                android:textSize="13sp"
+
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+
+        <!-- ============================================= -->
+        <!-- VIEW ASSIGNMENT -->
+        <!-- ============================================= -->
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="12dp"
+
+            android:text="VIEW ASSIGNMENT →"
+
+            android:textColor="#1976D2"
+
+            android:textSize="13sp"
+
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>
