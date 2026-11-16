@@ -16,6 +16,14 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
+        val apiHost = providers.gradleProperty("campusHubApiHost")
+            .orElse("10.79.76.92")
+            .get()
+        buildConfigField("String", "API_HOST", "\"$apiHost\"")
+
+    }
+    buildFeatures {
+        buildConfig = true
     }
 
     buildTypes {

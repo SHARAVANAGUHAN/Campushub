@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -16,86 +15,75 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.campushub.R;
-
+import java.util.ArrayList;
 import java.util.List;
 
 public class KindleBookAdapter extends RecyclerView.Adapter<KindleBookAdapter.BookViewHolder> {
+    public interface OnBookClickListener { void onBookClick(Book book); }
+    public interface OnBookLongClickListener { void onBookLongClick(Book book); }
 
     private final Context context;
-    private final List<Book> bookList;
+    private final List<Book> books = new ArrayList<>();
     private final OnBookClickListener listener;
+    private final OnBookLongClickListener longClickListener;
 
-    public interface OnBookClickListener {
-        void onBookClick(Book book);
-    }
-
-    public KindleBookAdapter(Context context, List<Book> bookList, OnBookClickListener listener) {
+    public KindleBookAdapter(Context context, List<Book> initialBooks,
+                             OnBookClickListener listener, OnBookLongClickListener longClickListener) {
         this.context = context;
-        this.bookList = bookList;
         this.listener = listener;
+        this.longClickListener = longClickListener;
+        setBooks(initialBooks);
     }
 
-    @NonNull
-    @Override
+    public void setBooks(List<Book> newBooks) {
+        books.clear();
+        if (newBooks != null) books.addAll(newBooks);
+        notifyDataSetChanged();
+    }
+
+    @NonNull @Override
     public BookViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_kindle_book, parent, false);
-        return new BookViewHolder(view);
+        return new BookViewHolder(LayoutInflater.from(context).inflate(R.layout.item_kindle_book, parent, false));
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull BookViewHolder holder, int position) {
-        Book book = bookList.get(position);
+    @Override public void onBindViewHolder(@NonNull BookViewHolder holder, int position) {
+        Book book = books.get(position);
         holder.tvBookTitle.setText(book.getTitle());
-
-        // 1. Load Book Cover Image (using Glide)
-        Glide.with(context)
-                .load(book.getCoverUrl())
+        Glide.with(holder.imgBookCover).load(book.getCoverUrl())
                 .placeholder(R.drawable.placeholder_book_cover)
-                .into(holder.imgBookCover);
-
-        // 2. Handle Lock / Unlock State
+                .error(R.drawable.placeholder_book_cover).centerCrop().into(holder.imgBookCover);
+        holder.cardBookCover.setAlpha(book.isLocked() ? 0.62f : 1f);
+        holder.imgStatusBadge.setImageResource(book.isLocked() ? R.drawable.ic_lock : R.drawable.ic_unlock);
+        holder.imgStatusBadge.setContentDescription(context.getString(book.isLocked()
+                ? R.string.book_access_locked : R.string.book_access_available));
+        holder.progressReading.setVisibility(book.isLocked() ? View.GONE : View.VISIBLE);
+        holder.progressReading.setProgress(book.getProgressPercentage());
         if (book.isLocked()) {
-            holder.cardBookCover.setAlpha(0.6f); // Dim cover opacity
-            holder.imgStatusBadge.setImageResource(R.drawable.ic_lock);
-            holder.progressReading.setVisibility(View.GONE);
-            holder.tvProgressText.setText(context.getString(R.string.book_restricted));
+            holder.tvProgressText.setText(R.string.book_restricted);
             holder.tvProgressText.setTextColor(Color.parseColor("#94A3B8"));
+        } else if (book.getProgressPercentage() == 100) {
+            holder.tvProgressText.setText(R.string.book_finished);
+            holder.tvProgressText.setTextColor(Color.parseColor("#0F766E"));
         } else {
-            holder.cardBookCover.setAlpha(1.0f);
-            holder.imgStatusBadge.setImageResource(R.drawable.ic_unlock);
-            holder.progressReading.setVisibility(View.VISIBLE);
-            holder.progressReading.setProgress(book.getProgressPercentage());
-
-            if (book.getProgressPercentage() == 100) {
-                holder.tvProgressText.setText(context.getString(R.string.book_finished));
-            } else {
-                holder.tvProgressText.setText(context.getString(R.string.book_read_percentage, book.getProgressPercentage()));
-            }
+            holder.tvProgressText.setText(context.getString(R.string.book_read_percentage, book.getProgressPercentage()));
             holder.tvProgressText.setTextColor(Color.parseColor("#64748B"));
         }
-
-        // 3. Click Listener
-        holder.itemView.setOnClickListener(v -> {
-            if (book.isLocked()) {
-                Toast.makeText(context, context.getString(R.string.book_soft_copy_locked), Toast.LENGTH_SHORT).show();
-            } else {
-                listener.onBookClick(book);
-            }
+        holder.itemView.setOnClickListener(v -> { if (listener != null) listener.onBookClick(book); });
+        holder.itemView.setOnLongClickListener(v -> {
+            if (longClickListener == null) return false;
+            longClickListener.onBookLongClick(book);
+            return true;
         });
     }
 
-    @Override
-    public int getItemCount() {
-        return bookList != null ? bookList.size() : 0;
-    }
+    @Override public int getItemCount() { return books.size(); }
 
-    public static class BookViewHolder extends RecyclerView.ViewHolder {
-        CardView cardBookCover;
-        ImageView imgBookCover, imgStatusBadge;
-        ProgressBar progressReading;
-        TextView tvProgressText,tvBookTitle ;
-
-        public BookViewHolder(@NonNull View itemView) {
+    static class BookViewHolder extends RecyclerView.ViewHolder {
+        final CardView cardBookCover;
+        final ImageView imgBookCover, imgStatusBadge;
+        final ProgressBar progressReading;
+        final TextView tvProgressText, tvBookTitle;
+        BookViewHolder(@NonNull View itemView) {
             super(itemView);
             cardBookCover = itemView.findViewById(R.id.cardBookCover);
             imgBookCover = itemView.findViewById(R.id.imgBookCover);

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#17212F"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="8dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="8dp">
+        <ImageButton android:id="@+id/btnReaderBack" android:layout_width="48dp" android:layout_height="48dp" android:background="?attr/selectableItemBackgroundBorderless" android:contentDescription="Back to library" android:src="@drawable/ic_arrow_back" />
+        <TextView android:id="@+id/tvReaderTitle" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:ellipsize="end" android:maxLines="1" android:textColor="#172B4D" android:textSize="17sp" android:textStyle="bold" />
+    </LinearLayout>
+    <FrameLayout android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
+        <com.example.campushub.activities.ZoomableImageView android:id="@+id/imgPdfPage" android:layout_width="match_parent" android:layout_height="match_parent" android:contentDescription="PDF page. Pinch to zoom and drag to move." android:padding="8dp" />
+        <ProgressBar android:id="@+id/readerLoading" android:layout_width="48dp" android:layout_height="48dp" android:layout_gravity="center" />
+    </FrameLayout>
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:background="#FFFFFF" android:gravity="center_vertical" android:orientation="horizontal" android:padding="12dp">
+        <com.google.android.material.button.MaterialButton android:id="@+id/btnPreviousPage" android:layout_width="wrap_content" android:layout_height="48dp" android:text="Previous" android:textAllCaps="false" />
+        <TextView android:id="@+id/tvPageNumber" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:textColor="#334155" android:textStyle="bold" />
+        <com.google.android.material.button.MaterialButton android:id="@+id/btnNextPage" android:layout_width="wrap_content" android:layout_height="48dp" android:text="Next" android:textAllCaps="false" />
+    </LinearLayout>
+</LinearLayout>

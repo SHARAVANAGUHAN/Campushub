@@ -2,9 +2,9 @@ package com.example.campushub.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -20,7 +20,7 @@ public class SplashActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_splash);
 
-        ImageView logo = findViewById(R.id.imgLogo);
+        View brandGroup = findViewById(R.id.brandGroup);
 
         Animation animation =
                 AnimationUtils.loadAnimation(
@@ -28,7 +28,7 @@ public class SplashActivity extends AppCompatActivity {
                         R.anim.logo_animation
                 );
 
-        logo.startAnimation(animation);
+        brandGroup.startAnimation(animation);
 
         new android.os.Handler(getMainLooper()).postDelayed(() -> {
 

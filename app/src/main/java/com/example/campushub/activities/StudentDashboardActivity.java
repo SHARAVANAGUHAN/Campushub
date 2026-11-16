@@ -11,6 +11,9 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +30,8 @@ import org.json.JSONObject;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.ArrayList;
+import java.util.TreeSet;
 
 public class StudentDashboardActivity extends AppCompatActivity {
 
@@ -72,6 +77,14 @@ public class StudentDashboardActivity extends AppCompatActivity {
     // =====================================================
 
     private LinearLayout subjectsContainer;
+
+    private Spinner semesterSpinner;
+
+    private JSONArray dashboardSubjects;
+
+    private final ArrayList<Integer> subjectSemesters = new ArrayList<>();
+
+    private int selectedSubjectSemester = -1;
 
 
     // =====================================================
@@ -238,6 +251,9 @@ public class StudentDashboardActivity extends AppCompatActivity {
         subjectsContainer =
                 findViewById(R.id.subjectsContainer);
 
+        semesterSpinner =
+                findViewById(R.id.spinnerSemester);
+
 
         // =====================================================
         // CARDS
@@ -266,6 +282,24 @@ public class StudentDashboardActivity extends AppCompatActivity {
 
         View leaveButton =
                 findViewById(R.id.cardLeave);
+
+        View libraryButton =
+                findViewById(R.id.cardLibrary);
+
+        View semesterDropdown =
+                findViewById(R.id.semesterDropdownCard);
+
+        View dashboardHeader =
+                findViewById(R.id.dashboardHeader);
+
+        View[] quickAccessCards = {
+                attendanceButton,
+                timetableButton,
+                quickAssignments,
+                announcements,
+                leaveButton,
+                libraryButton
+        };
 
 
         // =====================================================
@@ -501,6 +535,15 @@ public class StudentDashboardActivity extends AppCompatActivity {
 
         }
 
+        if (libraryButton != null) {
+            libraryButton.setOnClickListener(v ->
+                    startActivity(new Intent(
+                            StudentDashboardActivity.this,
+                            SharedLibraryActivity.class
+                    ))
+            );
+        }
+
 
         // =====================================================
         // LOAD DASHBOARD DATA
@@ -513,13 +556,25 @@ public class StudentDashboardActivity extends AppCompatActivity {
         // ENTRANCE ANIMATION
         // =====================================================
 
+        prepareAnimation(dashboardHeader);
         prepareAnimation(studentCard);
         prepareAnimation(statistics);
         prepareAnimation(assignments);
+        prepareAnimation(semesterDropdown);
 
-        animateView(studentCard, 0);
-        animateView(statistics, 150);
-        animateView(assignments, 300);
+        for (View quickAccessCard : quickAccessCards) {
+            prepareAnimation(quickAccessCard);
+        }
+
+        animateView(dashboardHeader, 0);
+        animateView(studentCard, 100);
+        animateView(statistics, 220);
+        animateView(assignments, 340);
+        animateView(semesterDropdown, 420);
+
+        for (int i = 0; i < quickAccessCards.length; i++) {
+            animateView(quickAccessCards[i], 500 + (i * 85L));
+        }
 
     }
 
@@ -868,6 +923,8 @@ public class StudentDashboardActivity extends AppCompatActivity {
         if (subjectsArray == null
                 || subjectsArray.length() == 0) {
 
+            findViewById(R.id.semesterDropdownCard).setVisibility(View.GONE);
+
             TextView noSubjects =
                     new TextView(this);
 
@@ -899,6 +956,54 @@ public class StudentDashboardActivity extends AppCompatActivity {
 
 
             return;
+        }
+
+        dashboardSubjects = subjectsArray;
+
+        if (semesterSpinner.getAdapter() == null) {
+            TreeSet<Integer> semesters = new TreeSet<>();
+            for (int i = 0; i < subjectsArray.length(); i++) {
+                JSONObject subject = subjectsArray.optJSONObject(i);
+                if (subject != null) {
+                    int semester = subject.optInt("semester", 0);
+                    if (semester > 0) {
+                        semesters.add(semester);
+                    }
+                }
+            }
+
+            subjectSemesters.clear();
+            subjectSemesters.addAll(semesters);
+
+            if (subjectSemesters.isEmpty()) {
+                findViewById(R.id.semesterDropdownCard).setVisibility(View.GONE);
+                return;
+            }
+
+            ArrayList<String> semesterLabels = new ArrayList<>();
+            for (int semester : subjectSemesters) {
+                semesterLabels.add("Semester " + semester);
+            }
+
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                    this,
+                    android.R.layout.simple_spinner_item,
+                    semesterLabels
+            );
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            semesterSpinner.setAdapter(adapter);
+            selectedSubjectSemester = subjectSemesters.get(0);
+            semesterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    selectedSubjectSemester = subjectSemesters.get(position);
+                    displaySubjects(dashboardSubjects);
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+                }
+            });
         }
 
 
@@ -936,6 +1041,11 @@ public class StudentDashboardActivity extends AppCompatActivity {
                                 0
                         );
 
+                if (selectedSubjectSemester > 0
+                        && semester != selectedSubjectSemester) {
+                    continue;
+                }
+
 
                 LinearLayout card =
                         createSubjectCard(
@@ -945,9 +1055,9 @@ public class StudentDashboardActivity extends AppCompatActivity {
                         );
 
 
-                subjectsContainer.addView(
-                        card
-                );
+                prepareAnimation(card);
+                subjectsContainer.addView(card);
+                animateView(card, subjectsContainer.getChildCount() * 55L);
 
 
             } catch (Exception e) {
@@ -1290,6 +1400,10 @@ public class StudentDashboardActivity extends AppCompatActivity {
 
             view.setTranslationY(50f);
 
+            view.setScaleX(0.96f);
+
+            view.setScaleY(0.96f);
+
         }
 
     }
@@ -1309,6 +1423,8 @@ public class StudentDashboardActivity extends AppCompatActivity {
             view.animate()
                     .alpha(1f)
                     .translationY(0f)
+                    .scaleX(1f)
+                    .scaleY(1f)
                     .setStartDelay(delay)
                     .setDuration(500)
                     .setInterpolator(

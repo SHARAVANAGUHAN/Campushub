@@ -18,6 +18,7 @@
         <!-- ===================================================== -->
 
         <LinearLayout
+            android:id="@+id/dashboardHeader"
             android:layout_width="match_parent"
             android:layout_height="240dp"
             android:orientation="vertical"
@@ -332,16 +333,58 @@
         <!-- CURRENT SUBJECTS -->
         <!-- ===================================================== -->
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Current Subjects"
-            android:textStyle="bold"
-            android:textSize="24sp"
-            android:textColor="#0D47A1"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
             android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             android:layout_marginTop="28dp"
-            android:layout_marginBottom="12dp" />
+            android:layout_marginBottom="12dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Current Subjects"
+                android:textStyle="bold"
+                android:textSize="22sp"
+                android:textColor="#0D47A1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="BY SEMESTER"
+                android:textColor="#64748B"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.08" />
+
+        </LinearLayout>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/semesterDropdownCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="12dp"
+            app:cardBackgroundColor="@android:color/white"
+            app:cardCornerRadius="14dp"
+            app:cardElevation="1dp"
+            app:strokeColor="#BFDBFE"
+            app:strokeWidth="1dp">
+
+            <Spinner
+                android:id="@+id/spinnerSemester"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:paddingStart="14dp"
+                android:paddingEnd="14dp"
+                android:spinnerMode="dropdown" />
+
+        </com.google.android.material.card.MaterialCardView>
 
         <LinearLayout
             android:id="@+id/subjectsContainer"
@@ -477,16 +520,16 @@
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/btnAttendance"
                 android:layout_width="0dp"
-                android:layout_height="150dp"
+                android:layout_height="142dp"
                 android:layout_weight="1"
                 android:layout_marginEnd="8dp"
                 android:clickable="true"
                 android:focusable="true"
                 android:foreground="?attr/selectableItemBackground"
                 app:cardBackgroundColor="#E3F2FD"
-                app:cardCornerRadius="22dp"
-                app:cardElevation="3dp"
-                app:strokeColor="#424242"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="9dp"
+                app:strokeColor="#93C5FD"
                 app:strokeWidth="1dp">
 
                 <LinearLayout
@@ -498,6 +541,8 @@
                     <ImageView
                         android:layout_width="48dp"
                         android:layout_height="48dp"
+                        android:background="@drawable/bg_quick_access_icon"
+                        android:padding="11dp"
                         android:src="@drawable/ic_person"
                         app:tint="#1565C0" />
 
@@ -510,6 +555,14 @@
                         android:textColor="#212121"
                         android:layout_marginTop="12dp" />
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="Your class record"
+                        android:textColor="#55708F"
+                        android:textSize="12sp" />
+
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>
@@ -520,16 +573,16 @@
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/btnTimetable"
                 android:layout_width="0dp"
-                android:layout_height="150dp"
+                android:layout_height="142dp"
                 android:layout_weight="1"
                 android:layout_marginStart="8dp"
                 android:clickable="true"
                 android:focusable="true"
                 android:foreground="?attr/selectableItemBackground"
                 app:cardBackgroundColor="#E8F5E9"
-                app:cardCornerRadius="22dp"
-                app:cardElevation="3dp"
-                app:strokeColor="#424242"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="9dp"
+                app:strokeColor="#A5D6A7"
                 app:strokeWidth="1dp">
 
                 <LinearLayout
@@ -541,6 +594,8 @@
                     <ImageView
                         android:layout_width="48dp"
                         android:layout_height="48dp"
+                        android:background="@drawable/bg_quick_access_icon"
+                        android:padding="11dp"
                         android:src="@drawable/ic_calendar_month"
                         app:tint="#2E7D32" />
 
@@ -552,6 +607,14 @@
                         android:textStyle="bold"
                         android:textColor="#212121"
                         android:layout_marginTop="12dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="Your weekly plan"
+                        android:textColor="#55708F"
+                        android:textSize="12sp" />
 
                 </LinearLayout>
 
@@ -577,16 +640,16 @@
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardAssignmentsQuick"
                 android:layout_width="0dp"
-                android:layout_height="150dp"
+                android:layout_height="142dp"
                 android:layout_weight="1"
                 android:layout_marginEnd="8dp"
                 android:clickable="true"
                 android:focusable="true"
                 android:foreground="?attr/selectableItemBackground"
                 app:cardBackgroundColor="#FFF3E0"
-                app:cardCornerRadius="22dp"
-                app:cardElevation="3dp"
-                app:strokeColor="#424242"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="9dp"
+                app:strokeColor="#FFD180"
                 app:strokeWidth="1dp">
 
                 <LinearLayout
@@ -599,6 +662,7 @@
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:gravity="center"
+                        android:background="@drawable/bg_quick_access_icon"
                         android:text="📝"
                         android:textSize="28sp" />
 
@@ -611,6 +675,14 @@
                         android:textColor="#212121"
                         android:layout_marginTop="12dp" />
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="Stay on top of tasks"
+                        android:textColor="#80603E"
+                        android:textSize="12sp" />
+
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>
@@ -621,16 +693,16 @@
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardAnnouncements"
                 android:layout_width="0dp"
-                android:layout_height="150dp"
+                android:layout_height="142dp"
                 android:layout_weight="1"
                 android:layout_marginStart="8dp"
                 android:clickable="true"
                 android:focusable="true"
                 android:foreground="?attr/selectableItemBackground"
                 app:cardBackgroundColor="#EDE7F6"
-                app:cardCornerRadius="22dp"
-                app:cardElevation="3dp"
-                app:strokeColor="#424242"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="9dp"
+                app:strokeColor="#D1C4E9"
                 app:strokeWidth="1dp">
 
                 <LinearLayout
@@ -643,6 +715,7 @@
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:gravity="center"
+                        android:background="@drawable/bg_quick_access_icon"
                         android:text="📢"
                         android:textSize="28sp" />
 
@@ -654,6 +727,14 @@
                         android:textStyle="bold"
                         android:textColor="#212121"
                         android:layout_marginTop="12dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="Campus updates"
+                        android:textColor="#6D5D84"
+                        android:textSize="12sp" />
 
                 </LinearLayout>
 
@@ -679,16 +760,16 @@
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardLeave"
                 android:layout_width="0dp"
-                android:layout_height="150dp"
+                android:layout_height="142dp"
                 android:layout_weight="1"
                 android:layout_marginEnd="8dp"
                 android:clickable="true"
                 android:focusable="true"
                 android:foreground="?attr/selectableItemBackground"
                 app:cardBackgroundColor="#FCE4EC"
-                app:cardCornerRadius="22dp"
-                app:cardElevation="3dp"
-                app:strokeColor="#424242"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="9dp"
+                app:strokeColor="#F8BBD0"
                 app:strokeWidth="1dp">
 
                 <LinearLayout
@@ -701,6 +782,7 @@
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:gravity="center"
+                        android:background="@drawable/bg_quick_access_icon"
                         android:text="📄"
                         android:textSize="28sp" />
 
@@ -713,8 +795,37 @@
                         android:textColor="#212121"
                         android:layout_marginTop="12dp" />
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="Request time away"
+                        android:textColor="#865B68"
+                        android:textSize="12sp" />
+
                 </LinearLayout>
 
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardLibrary"
+                android:layout_width="0dp"
+                android:layout_height="142dp"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
+                app:cardBackgroundColor="#E0F2F1"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="9dp"
+                app:strokeColor="#80CBC4"
+                app:strokeWidth="1dp">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center" android:orientation="vertical">
+                    <ImageView android:layout_width="48dp" android:layout_height="48dp" android:background="@drawable/bg_quick_access_icon" android:padding="11dp" android:src="@drawable/ic_menu_book" app:tint="#00796B" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:text="Library" android:textColor="#212121" android:textSize="17sp" android:textStyle="bold" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="Your reading shelf" android:textColor="#47736D" android:textSize="12sp" />
+                </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
         </LinearLayout>

@@ -10,6 +10,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -30,6 +32,8 @@ public class ProfileActivity extends AppCompatActivity {
     // =====================================================
 
     private ImageView profileImage;
+
+    private ActivityResultLauncher<String[]> profilePhotoPicker;
 
     private TextView profileName;
 
@@ -88,6 +92,47 @@ public class ProfileActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
 
+        profilePhotoPicker = registerForActivityResult(
+                new ActivityResultContracts.OpenDocument(),
+                uri -> {
+                    if (uri == null) {
+                        return;
+                    }
+
+                    try {
+                        getContentResolver().takePersistableUriPermission(
+                                uri,
+                                Intent.FLAG_GRANT_READ_URI_PERMISSION
+                        );
+
+                        showProfilePhoto(uri);
+
+                        String studentId = getSharedPreferences(
+                                "CampusHubPrefs",
+                                MODE_PRIVATE
+                        ).getString("student_id", "");
+
+                        if (studentId != null && !studentId.isEmpty()) {
+                            getSharedPreferences(
+                                    "CampusHubProfilePhotos",
+                                    MODE_PRIVATE
+                            ).edit()
+                                    .putString(
+                                            "student_" + studentId,
+                                            uri.toString()
+                                    )
+                                    .apply();
+                        }
+                    } catch (SecurityException e) {
+                        Toast.makeText(
+                                this,
+                                "Couldn't save access to that photo. Please choose another.",
+                                Toast.LENGTH_LONG
+                        ).show();
+                    }
+                }
+        );
+
         EdgeToEdge.enable(this);
 
         setContentView(
@@ -100,6 +145,13 @@ public class ProfileActivity extends AppCompatActivity {
         // =====================================================
 
         findViews();
+
+        loadSavedProfilePhoto();
+
+        profileImage.setOnClickListener(v -> openProfilePhotoPicker());
+
+        findViewById(R.id.btnEditProfilePhoto)
+                .setOnClickListener(v -> openProfilePhotoPicker());
 
 
         // =====================================================
@@ -232,6 +284,49 @@ public class ProfileActivity extends AppCompatActivity {
                         R.id.txtPhone
                 );
 
+    }
+
+
+    private void openProfilePhotoPicker() {
+        profilePhotoPicker.launch(new String[]{"image/*"});
+    }
+
+
+    private void loadSavedProfilePhoto() {
+        String studentId = getSharedPreferences(
+                "CampusHubPrefs",
+                MODE_PRIVATE
+        ).getString("student_id", "");
+
+        if (studentId == null || studentId.isEmpty()) {
+            return;
+        }
+
+        String savedUri = getSharedPreferences(
+                "CampusHubProfilePhotos",
+                MODE_PRIVATE
+        ).getString("student_" + studentId, null);
+
+        if (savedUri == null) {
+            return;
+        }
+
+        try {
+            showProfilePhoto(android.net.Uri.parse(savedUri));
+        } catch (Exception e) {
+            getSharedPreferences(
+                    "CampusHubProfilePhotos",
+                    MODE_PRIVATE
+            ).edit().remove("student_" + studentId).apply();
+        }
+    }
+
+
+    private void showProfilePhoto(android.net.Uri uri) {
+        profileImage.setImageTintList(null);
+        profileImage.setPadding(0, 0, 0, 0);
+        profileImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        profileImage.setImageURI(uri);
     }
 
 

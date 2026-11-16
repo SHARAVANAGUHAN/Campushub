@@ -27,6 +27,14 @@
             android:name=".activities.StudentAttendanceActivity"
             android:exported="false" />
 
+        <activity android:name=".activities.LibraryActivity" android:exported="false" />
+        <activity android:name=".activities.PdfReaderActivity" android:exported="false" />
+        <activity android:name=".activities.SharedLibraryActivity" android:exported="false" />
+        <activity android:name=".activities.LibrarianLoginActivity" android:exported="false" android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".activities.LibrarianSignupActivity" android:exported="false" android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".activities.LibrarianDashboardActivity" android:exported="false" />
+        <activity android:name=".activities.LibrarianProfileActivity" android:exported="false" />
+
         <!-- Lecturer Profile -->
         <activity
             android:name=".activities.LecturerProfileActivity"
@@ -106,12 +114,14 @@
         <!-- Student Signup -->
         <activity
             android:name=".activities.SignupActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
 
         <!-- Lecturer Signup -->
         <activity
             android:name=".activities.LecturerSignupActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
 
         <!-- Student Dashboard -->
         <activity

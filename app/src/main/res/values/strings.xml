@@ -16,4 +16,15 @@
     <string name="book_finished">Finished</string>
     <string name="book_read_percentage">%1$d%% Read</string>
     <string name="book_soft_copy_locked">Soft copy locked by librarian</string>
+    <string name="book_access_locked">Book access restricted</string>
+    <string name="book_access_available">Book available to read</string>
+    <string name="library_added">PDF added to your library</string>
+    <string name="library_permission_error">Could not keep access to this PDF. Please add it again.</string>
+    <string name="library_removed">Book removed from your library</string>
+    <string name="library_open_error">This PDF could not be opened. Try adding it again.</string>
+    <string name="reader_page">Page %1$d of %2$d</string>
+    <plurals name="library_book_count">
+        <item quantity="one">%d book on your shelf</item>
+        <item quantity="other">%d books on your shelf</item>
+    </plurals>
 </resources>

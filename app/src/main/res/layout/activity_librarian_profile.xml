@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="match_parent" android:background="#F3F7FB" android:fillViewport="true">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:paddingBottom="32dp">
+        <FrameLayout android:layout_width="match_parent" android:layout_height="290dp" android:background="@drawable/bg_librarian_hero">
+            <View android:layout_width="220dp" android:layout_height="220dp" android:layout_gravity="top|end" android:layout_marginTop="-80dp" android:layout_marginEnd="-80dp" android:background="@drawable/bg_circle_light" />
+            <ImageButton android:id="@+id/btnBack" android:layout_width="48dp" android:layout_height="48dp" android:layout_gravity="top|start" android:layout_marginStart="18dp" android:layout_marginTop="24dp" android:background="?attr/selectableItemBackgroundBorderless" android:contentDescription="Back to library dashboard" android:src="@drawable/ic_arrow_back" app:tint="@android:color/white" />
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center" android:orientation="vertical" android:paddingTop="22dp">
+                <ImageView android:layout_width="104dp" android:layout_height="104dp" android:background="@drawable/profile_circle" android:contentDescription="Librarian profile" android:padding="25dp" android:src="@drawable/ic_person" app:tint="#0F766E" />
+                <TextView android:id="@+id/tvProfileName" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="14dp" android:text="Loading profile..." android:textColor="@android:color/white" android:textSize="24sp" android:textStyle="bold" />
+                <TextView android:id="@+id/tvProfileId" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="5dp" android:text="Librarian ID" android:textColor="#DCEBFF" android:textSize="15sp" />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="Campus library team" android:textColor="#CCF3E9" android:textSize="13sp" />
+            </LinearLayout>
+        </FrameLayout>
+
+        <com.google.android.material.card.MaterialCardView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginStart="20dp" android:layout_marginTop="-22dp" android:layout_marginEnd="20dp" app:cardBackgroundColor="#FFFFFF" app:cardCornerRadius="24dp" app:cardElevation="5dp" app:strokeColor="#C7DFFF" app:strokeWidth="1dp">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="22dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Personal information" android:textColor="#1565C0" android:textSize="19sp" android:textStyle="bold" />
+                <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginTop="13dp" android:layout_marginBottom="16dp" android:background="#DBEAFE" />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Full name" android:textColor="#64748B" android:textSize="13sp" />
+                <TextView android:id="@+id/tvProfileFullName" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="Loading..." android:textColor="#1E293B" android:textSize="16sp" android:textStyle="bold" />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="16dp" android:text="Email" android:textColor="#64748B" android:textSize="13sp" />
+                <TextView android:id="@+id/tvProfileEmail" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="Loading..." android:textColor="#1E293B" android:textSize="16sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginStart="20dp" android:layout_marginTop="14dp" android:layout_marginEnd="20dp" app:cardBackgroundColor="#E7F5F2" app:cardCornerRadius="22dp" app:cardElevation="2dp" app:strokeColor="#B7E6DA" app:strokeWidth="1dp">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="20dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="CampusHub role" android:textColor="#0F766E" android:textSize="17sp" android:textStyle="bold" />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="7dp" android:text="Librarian · Manage the shared book catalog and student loan requests." android:textColor="#3F625C" android:textSize="14sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.button.MaterialButton android:id="@+id/btnLogout" android:layout_width="match_parent" android:layout_height="56dp" android:layout_marginStart="20dp" android:layout_marginTop="16dp" android:layout_marginEnd="20dp" android:text="Log out" android:textColor="#B91C1C" android:textSize="16sp" android:textStyle="bold" app:backgroundTint="#FFF1F2" app:cornerRadius="16dp" app:icon="@drawable/ic_logout" app:iconGravity="textStart" app:iconPadding="10dp" app:iconTint="#B91C1C" app:strokeColor="#FECACA" app:strokeWidth="1dp" />
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EEF5FF"
+    android:fillViewport="true"
+    android:fitsSystemWindows="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#EEF5FF">
+
+        <FrameLayout
+            android:id="@+id/header"
+            android:layout_width="0dp"
+            android:layout_height="285dp"
+            android:background="@drawable/header_blue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+            <View android:layout_width="220dp" android:layout_height="220dp" android:layout_gravity="top|start" android:layout_marginStart="-70dp" android:layout_marginTop="-50dp" android:background="@drawable/bg_circle_light" />
+            <View android:layout_width="240dp" android:layout_height="240dp" android:layout_gravity="bottom|end" android:layout_marginEnd="-80dp" android:layout_marginBottom="-80dp" android:background="@drawable/bg_circle_dark" />
+            <ImageButton android:id="@+id/btnBack" android:layout_width="44dp" android:layout_height="44dp" android:layout_gravity="top|start" android:layout_marginStart="18dp" android:layout_marginTop="14dp" android:background="?attr/selectableItemBackgroundBorderless" android:contentDescription="Go back" android:padding="10dp" android:src="@drawable/ic_arrow_back" app:tint="@android:color/white" />
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center" android:orientation="vertical" android:paddingTop="18dp">
+                <ImageView android:layout_width="92dp" android:layout_height="92dp" android:background="@drawable/logo_circle" android:contentDescription="CampusHub logo" android:padding="15dp" android:src="@drawable/campus_hub_logo" />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="14dp" android:text="Librarian registration" android:textColor="@android:color/white" android:textSize="26sp" android:textStyle="bold" />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="Join your campus library team" android:textColor="#E8F3FF" android:textSize="14sp" />
+            </LinearLayout>
+        </FrameLayout>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/signupCard"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="-35dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="30dp"
+            app:cardBackgroundColor="@android:color/white"
+            app:cardCornerRadius="30dp"
+            app:cardElevation="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/header">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="26dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Create account" android:textColor="#1E293B" android:textSize="25sp" android:textStyle="bold" />
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="5dp" android:text="Create your librarian account to manage books and student requests." android:textColor="#64748B" android:textSize="14sp" />
+
+                <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="22dp" android:hint="Librarian ID" app:boxBackgroundColor="#F4F7FB" app:boxBackgroundMode="filled" app:boxCornerRadiusBottomEnd="18dp" app:boxCornerRadiusBottomStart="18dp" app:boxCornerRadiusTopEnd="18dp" app:boxCornerRadiusTopStart="18dp" app:boxStrokeColor="#4F8CFF">
+                    <com.google.android.material.textfield.TextInputEditText android:id="@+id/etLibrarianId" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="text" />
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="14dp" android:hint="Full name" app:boxBackgroundColor="#F4F7FB" app:boxBackgroundMode="filled" app:boxCornerRadiusBottomEnd="18dp" app:boxCornerRadiusBottomStart="18dp" app:boxCornerRadiusTopEnd="18dp" app:boxCornerRadiusTopStart="18dp" app:boxStrokeColor="#4F8CFF">
+                    <com.google.android.material.textfield.TextInputEditText android:id="@+id/etFullName" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="textPersonName" />
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="14dp" android:hint="Campus email" app:boxBackgroundColor="#F4F7FB" app:boxBackgroundMode="filled" app:boxCornerRadiusBottomEnd="18dp" app:boxCornerRadiusBottomStart="18dp" app:boxCornerRadiusTopEnd="18dp" app:boxCornerRadiusTopStart="18dp" app:boxStrokeColor="#4F8CFF">
+                    <com.google.android.material.textfield.TextInputEditText android:id="@+id/etEmail" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="textEmailAddress" />
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="14dp" android:hint="Password (8+ characters)" app:boxBackgroundColor="#F4F7FB" app:boxBackgroundMode="filled" app:boxCornerRadiusBottomEnd="18dp" app:boxCornerRadiusBottomStart="18dp" app:boxCornerRadiusTopEnd="18dp" app:boxCornerRadiusTopStart="18dp" app:boxStrokeColor="#4F8CFF" app:endIconMode="password_toggle">
+                    <com.google.android.material.textfield.TextInputEditText android:id="@+id/etPassword" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="textPassword" />
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="14dp" android:hint="Confirm password" app:boxBackgroundColor="#F4F7FB" app:boxBackgroundMode="filled" app:boxCornerRadiusBottomEnd="18dp" app:boxCornerRadiusBottomStart="18dp" app:boxCornerRadiusTopEnd="18dp" app:boxCornerRadiusTopStart="18dp" app:boxStrokeColor="#4F8CFF" app:endIconMode="password_toggle">
+                    <com.google.android.material.textfield.TextInputEditText android:id="@+id/etConfirmPassword" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="textPassword" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.button.MaterialButton android:id="@+id/btnCreateAccount" android:layout_width="match_parent" android:layout_height="58dp" android:layout_marginTop="20dp" android:background="@drawable/animated_login_button" android:text="CREATE ACCOUNT" android:textAllCaps="false" android:textColor="@android:color/white" android:textSize="16sp" android:textStyle="bold" app:backgroundTint="@null" app:cornerRadius="29dp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

@@ -1,6 +1,9 @@
 package com.example.campushub.api;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -11,153 +14,132 @@ import java.util.Map;
 
 public class ApiClient {
 
-    private static final String BASE_URL =
-            "http://10.79.76.92:8000/";
+    // Replace YOUR-LAPTOP-IPV4 with the IPv4 from ipconfig (keep http:// and :8000/)
+    private static String baseUrl = "http://127.0.0.1:8000/";
 
+    private static final int DEFAULT_TIMEOUT_MS = 10000;
+    private static final int MULTIPART_TIMEOUT_MS = 30000;
 
-    // =====================================================
-    // NORMAL POST
-    // =====================================================
+    private ApiClient() {}
 
-    public static String post(
-            String endpoint,
-            String jsonBody
-    ) throws Exception {
-
-        URL url =
-                new URL(BASE_URL + endpoint);
-
-        HttpURLConnection connection =
-                (HttpURLConnection) url.openConnection();
-
-        connection.setRequestMethod("POST");
-
-        connection.setRequestProperty(
-                "Content-Type",
-                "application/json"
-        );
-
-        connection.setRequestProperty(
-                "Accept",
-                "application/json"
-        );
-
-        connection.setDoOutput(true);
-
-        connection.setConnectTimeout(10000);
-        connection.setReadTimeout(10000);
-
-        try (OutputStream outputStream =
-                     connection.getOutputStream()) {
-
-            outputStream.write(
-                    jsonBody.getBytes(
-                            StandardCharsets.UTF_8
-                    )
-            );
+    public static void setBaseUrl(String ipOrUrl) {
+        if (ipOrUrl == null || ipOrUrl.trim().isEmpty()) return;
+        String formatted = ipOrUrl.trim();
+        if (!formatted.startsWith("http://") && !formatted.startsWith("https://")) {
+            formatted = "http://" + formatted;
         }
-
-        return readResponse(connection);
+        if (!formatted.endsWith("/")) {
+            formatted += "/";
+        }
+        baseUrl = formatted;
     }
 
+    public static String getBaseUrl() {
+        return baseUrl;
+    }
 
-    // =====================================================
-    // AUTHENTICATED POST
-    // =====================================================
-
-    public static String postAuthenticated(
+    private static HttpURLConnection createConnection(
             String endpoint,
+            String method,
+            String accessToken,
+            boolean hasBody
+    ) throws IOException {
+        URL url = new URL(baseUrl + endpoint);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod(method);
+        connection.setConnectTimeout(DEFAULT_TIMEOUT_MS);
+        connection.setReadTimeout(DEFAULT_TIMEOUT_MS);
+        connection.setRequestProperty("Accept", "application/json");
+
+        if (accessToken != null && !accessToken.isEmpty()) {
+            connection.setRequestProperty("Authorization", "Bearer " + accessToken);
+        }
+
+        if (hasBody) {
+            connection.setRequestProperty("Content-Type", "application/json");
+            connection.setDoOutput(true);
+        }
+
+        return connection;
+    }
+
+    private static String executeJsonRequest(
+            String endpoint,
+            String method,
             String jsonBody,
             String accessToken
     ) throws Exception {
+        HttpURLConnection connection = createConnection(endpoint, method, accessToken, jsonBody != null);
 
-        URL url =
-                new URL(BASE_URL + endpoint);
-
-        HttpURLConnection connection =
-                (HttpURLConnection) url.openConnection();
-
-        connection.setRequestMethod("POST");
-
-        connection.setRequestProperty(
-                "Content-Type",
-                "application/json"
-        );
-
-        connection.setRequestProperty(
-                "Accept",
-                "application/json"
-        );
-
-        connection.setRequestProperty(
-                "Authorization",
-                "Bearer " + accessToken
-        );
-
-        connection.setDoOutput(true);
-
-        connection.setConnectTimeout(10000);
-        connection.setReadTimeout(10000);
-
-        try (OutputStream outputStream =
-                     connection.getOutputStream()) {
-
-            outputStream.write(
-                    jsonBody.getBytes(
-                            StandardCharsets.UTF_8
-                    )
-            );
+        if (jsonBody != null) {
+            try (OutputStream outputStream = connection.getOutputStream()) {
+                outputStream.write(jsonBody.getBytes(StandardCharsets.UTF_8));
+            }
         }
 
         return readResponse(connection);
     }
 
-
-    // =====================================================
-    // AUTHENTICATED GET
-    // =====================================================
-
-    public static String get(
-            String endpoint,
-            String accessToken
-    ) throws Exception {
-
-        URL url =
-                new URL(BASE_URL + endpoint);
-
-        HttpURLConnection connection =
-                (HttpURLConnection) url.openConnection();
-
-        connection.setRequestMethod("GET");
-
-        connection.setRequestProperty(
-                "Accept",
-                "application/json"
-        );
-
-        connection.setRequestProperty(
-                "Authorization",
-                "Bearer " + accessToken
-        );
-
-        connection.setConnectTimeout(10000);
-        connection.setReadTimeout(10000);
-
-        return readResponse(connection);
+    public static String post(String endpoint, String jsonBody) throws Exception {
+        return executeJsonRequest(endpoint, "POST", jsonBody, null);
     }
 
+    public static String postAuthenticated(String endpoint, String jsonBody, String accessToken) throws Exception {
+        return executeJsonRequest(endpoint, "POST", jsonBody, accessToken);
+    }
 
-    // =====================================================
-    // MULTIPART POST
-    //
-    // Sends:
-    // - department
-    // - class_teacher
-    // - from_date
-    // - to_date
-    // - reason
-    // - optional attachment
-    // =====================================================
+    public static String get(String endpoint, String accessToken) throws Exception {
+        return executeJsonRequest(endpoint, "GET", null, accessToken);
+    }
+
+    public static String patchAuthenticated(String endpoint, String jsonBody, String accessToken) throws Exception {
+        return executeJsonRequest(endpoint, "PATCH", jsonBody, accessToken);
+    }
+
+    public static File downloadAuthenticated(String endpoint, String accessToken, File destination) throws Exception {
+        URL url = new URL(baseUrl + endpoint);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("GET");
+        if (accessToken != null && !accessToken.isEmpty()) {
+            connection.setRequestProperty("Authorization", "Bearer " + accessToken);
+        }
+        connection.setRequestProperty("Accept", "application/json, application/pdf;q=0.9, */*;q=0.8");
+        connection.setConnectTimeout(DEFAULT_TIMEOUT_MS);
+        connection.setReadTimeout(MULTIPART_TIMEOUT_MS);
+
+        try {
+            int responseCode = connection.getResponseCode();
+            if (responseCode < 200 || responseCode >= 300) {
+                String message = "Download failed (HTTP " + responseCode + ")";
+                InputStream error = connection.getErrorStream();
+                if (error != null) {
+                    try (BufferedReader reader = new BufferedReader(new InputStreamReader(error, StandardCharsets.UTF_8))) {
+                        StringBuilder body = new StringBuilder();
+                        String line;
+                        while ((line = reader.readLine()) != null) {
+                            body.append(line);
+                        }
+                        if (body.length() > 0) {
+                            message = body.toString();
+                        }
+                    }
+                }
+                throw new IOException(message);
+            }
+
+            try (InputStream input = connection.getInputStream();
+                 FileOutputStream output = new FileOutputStream(destination)) {
+                byte[] buffer = new byte[8192];
+                int read;
+                while ((read = input.read(buffer)) != -1) {
+                    output.write(buffer, 0, read);
+                }
+            }
+            return destination;
+        } finally {
+            connection.disconnect();
+        }
+    }
 
     public static String postMultipart(
             String endpoint,
@@ -168,164 +150,83 @@ public class ApiClient {
             String mimeType,
             InputStream fileInputStream
     ) throws Exception {
+        return postMultipartFiles(endpoint, accessToken, fields,
+                new String[]{fileFieldName}, new String[]{fileName},
+                new String[]{mimeType}, new InputStream[]{fileInputStream});
+    }
 
-        String boundary =
-                "----CampusHubBoundary"
-                        + System.currentTimeMillis();
-
-        URL url =
-                new URL(BASE_URL + endpoint);
-
-        HttpURLConnection connection =
-                (HttpURLConnection) url.openConnection();
-
+    public static String postMultipartFiles(
+            String endpoint,
+            String accessToken,
+            Map<String, String> fields,
+            String[] fileFieldNames,
+            String[] fileNames,
+            String[] mimeTypes,
+            InputStream[] fileInputStreams
+    ) throws Exception {
+        String boundary = "----CampusHubBoundary" + System.currentTimeMillis();
+        URL url = new URL(baseUrl + endpoint);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("POST");
-
-        connection.setRequestProperty(
-                "Authorization",
-                "Bearer " + accessToken
-        );
-
-        connection.setRequestProperty(
-                "Accept",
-                "application/json"
-        );
-
-        connection.setRequestProperty(
-                "Content-Type",
-                "multipart/form-data; boundary="
-                        + boundary
-        );
-
+        if (accessToken != null && !accessToken.isEmpty()) {
+            connection.setRequestProperty("Authorization", "Bearer " + accessToken);
+        }
+        connection.setRequestProperty("Accept", "application/json");
+        connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + boundary);
         connection.setDoOutput(true);
         connection.setUseCaches(false);
+        connection.setConnectTimeout(DEFAULT_TIMEOUT_MS);
+        connection.setReadTimeout(MULTIPART_TIMEOUT_MS);
 
-        connection.setConnectTimeout(15000);
-        connection.setReadTimeout(30000);
-
-        try (OutputStream outputStream =
-                     connection.getOutputStream()) {
-
-            // =============================================
-            // NORMAL FORM FIELDS
-            // =============================================
-
+        try (OutputStream outputStream = connection.getOutputStream()) {
             if (fields != null) {
-
-                for (Map.Entry<String, String> entry :
-                        fields.entrySet()) {
-
-                    String fieldName =
-                            entry.getKey();
-
-                    String fieldValue =
-                            entry.getValue();
-
-                    String fieldPart =
-                            "--" + boundary + "\r\n"
-                                    + "Content-Disposition: form-data; "
-                                    + "name=\""
-                                    + fieldName
-                                    + "\"\r\n\r\n"
-                                    + fieldValue
-                                    + "\r\n";
-
-                    outputStream.write(
-                            fieldPart.getBytes(
-                                    StandardCharsets.UTF_8
-                            )
-                    );
+                for (Map.Entry<String, String> entry : fields.entrySet()) {
+                    String fieldPart = "--" + boundary + "\r\n"
+                            + "Content-Disposition: form-data; name=\"" + entry.getKey() + "\"\r\n\r\n"
+                            + entry.getValue() + "\r\n";
+                    outputStream.write(fieldPart.getBytes(StandardCharsets.UTF_8));
                 }
             }
 
-            // =============================================
-            // FILE
-            // =============================================
+            if (fileInputStreams != null) {
+                for (int i = 0; i < fileInputStreams.length; i++) {
+                    InputStream fileInputStream = fileInputStreams[i];
+                    String fileFieldName = fileFieldNames != null && i < fileFieldNames.length ? fileFieldNames[i] : null;
+                    String fileName = fileNames != null && i < fileNames.length ? fileNames[i] : null;
+                    String mimeType = mimeTypes != null && i < mimeTypes.length ? mimeTypes[i] : null;
 
-            if (fileInputStream != null &&
-                    fileFieldName != null &&
-                    fileName != null) {
+                    if (fileInputStream == null || fileFieldName == null || fileName == null) continue;
+                    if (mimeType == null || mimeType.isEmpty()) mimeType = "application/octet-stream";
 
-                if (mimeType == null ||
-                        mimeType.isEmpty()) {
-
-                    mimeType =
-                            "application/octet-stream";
+                    String fileHeader = "--" + boundary + "\r\n"
+                            + "Content-Disposition: form-data; name=\"" + fileFieldName
+                            + "\"; filename=\"" + fileName + "\"\r\n"
+                            + "Content-Type: " + mimeType + "\r\n\r\n";
+                    outputStream.write(fileHeader.getBytes(StandardCharsets.UTF_8));
+                    byte[] buffer = new byte[8192];
+                    int bytesRead;
+                    while ((bytesRead = fileInputStream.read(buffer)) != -1) {
+                        outputStream.write(buffer, 0, bytesRead);
+                    }
+                    outputStream.write("\r\n".getBytes(StandardCharsets.UTF_8));
                 }
-
-                String fileHeader =
-                        "--" + boundary + "\r\n"
-                                + "Content-Disposition: form-data; "
-                                + "name=\""
-                                + fileFieldName
-                                + "\"; filename=\""
-                                + fileName
-                                + "\"\r\n"
-                                + "Content-Type: "
-                                + mimeType
-                                + "\r\n\r\n";
-
-                outputStream.write(
-                        fileHeader.getBytes(
-                                StandardCharsets.UTF_8
-                        )
-                );
-
-                byte[] buffer =
-                        new byte[8192];
-
-                int bytesRead;
-
-                while ((bytesRead =
-                        fileInputStream.read(buffer)) != -1) {
-
-                    outputStream.write(
-                            buffer,
-                            0,
-                            bytesRead
-                    );
-                }
-
-                outputStream.write(
-                        "\r\n".getBytes(
-                                StandardCharsets.UTF_8
-                        )
-                );
             }
 
-            // =============================================
-            // END MULTIPART
-            // =============================================
-
-            String ending =
-                    "--" + boundary + "--\r\n";
-
-            outputStream.write(
-                    ending.getBytes(
-                            StandardCharsets.UTF_8
-                    )
-            );
-
+            String ending = "--" + boundary + "--\r\n";
+            outputStream.write(ending.getBytes(StandardCharsets.UTF_8));
             outputStream.flush();
-
         } finally {
-
-            if (fileInputStream != null) {
-
-                try {
-                    fileInputStream.close();
-                } catch (Exception ignored) {
+            if (fileInputStreams != null) {
+                for (InputStream inputStream : fileInputStreams) {
+                    if (inputStream != null) {
+                        try { inputStream.close(); } catch (Exception ignored) {}
+                    }
                 }
             }
         }
 
         return readResponse(connection);
     }
-
-
-    // =====================================================
-    // OLD FILE UPLOAD METHOD
-    // =====================================================
 
     public static String uploadFile(
             String endpoint,
@@ -335,73 +236,31 @@ public class ApiClient {
             String mimeType,
             InputStream fileInputStream
     ) throws Exception {
-
-        return postMultipart(
-                endpoint,
-                accessToken,
-                null,
-                fileFieldName,
-                fileName,
-                mimeType,
-                fileInputStream
-        );
+        return postMultipart(endpoint, accessToken, null, fileFieldName, fileName, mimeType, fileInputStream);
     }
 
+    private static String readResponse(HttpURLConnection connection) throws Exception {
+        try {
+            int responseCode = connection.getResponseCode();
+            InputStream inputStream = (responseCode >= 200 && responseCode < 400)
+                    ? connection.getInputStream()
+                    : connection.getErrorStream();
 
-    // =====================================================
-    // READ RESPONSE
-    // =====================================================
+            if (inputStream == null) {
+                return "";
+            }
 
-    private static String readResponse(
-            HttpURLConnection connection
-    ) throws Exception {
-
-        int responseCode =
-                connection.getResponseCode();
-
-        InputStream inputStream;
-
-        if (responseCode >= 200 &&
-                responseCode < 400) {
-
-            inputStream =
-                    connection.getInputStream();
-
-        } else {
-
-            inputStream =
-                    connection.getErrorStream();
-        }
-
-        if (inputStream == null) {
-
+            try (BufferedReader reader = new BufferedReader(
+                    new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
+                StringBuilder response = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    response.append(line);
+                }
+                return response.toString();
+            }
+        } finally {
             connection.disconnect();
-
-            return "";
         }
-
-        BufferedReader reader =
-                new BufferedReader(
-                        new InputStreamReader(
-                                inputStream,
-                                StandardCharsets.UTF_8
-                        )
-                );
-
-        StringBuilder response =
-                new StringBuilder();
-
-        String line;
-
-        while ((line = reader.readLine()) != null) {
-
-            response.append(line);
-        }
-
-        reader.close();
-
-        connection.disconnect();
-
-        return response.toString();
     }
 }
